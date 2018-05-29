@@ -16,7 +16,7 @@ public class Think {
             for(int i=0;i<2;i++) {
                 in.add(new Neuron());
             }
-            for(int i=0;i<10;i++) {
+            for(int i=0;i<5;i++) {
                 hidden.add(new Neuron());
             }
             for(int i=0;i<2;i++) {
@@ -99,7 +99,7 @@ public class Think {
                     System.out.println("out1: " + out1);
                     System.out.println("out2: " + out2);  
                 }*/
-                if (attempts>2000) {
+                if (attempts>1100) {
                     System.out.println("enter variables to test");
                     while(true) {
                         System.out.print("var1:");
@@ -140,7 +140,7 @@ public class Think {
                         System.out.println("out2: " + out.get(1).getValue());                                        
                     }
                 }
-                if(attempts>5000) {
+                if(attempts>1000) {
                     for(Neuron n : in) {
                         System.out.println("input neuron value: " + n.getValue());
                     }
@@ -170,7 +170,7 @@ public class Think {
                     }
                     for (Neuron n : hidden) {
                         System.out.println("hidden neuron total: " + n.getTotal());
-                        System.out.println("hidden neuron value: " + n.getValue());
+                        System.out.println("hidden neuron value: "  + n.getValue());
                     }
                     for(Dendrite d : hidden_out) {
                         System.out.println("dendrite l-r from hidden-out weight: " + d.getWeight());
