@@ -73,6 +73,7 @@ public class Think {
                 }
                 double out1 = out.get(0).getValue();
                 double out2 = out.get(1).getValue();
+                
                 worked=false;
                 /*System.out.println("rand1: " + rand1);
                 System.out.println("rand2: " + rand2);
