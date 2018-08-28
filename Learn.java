@@ -4,7 +4,7 @@ public class Learn {
     public static void main(String[] args) {
         int num=-1;
         int best=0;
-        double lrate = .05;
+        double lrate = .1;
         //while(true) {
         boolean worked=true;
         num++;
@@ -17,7 +17,7 @@ public class Learn {
         for(int i=0;i<2;i++) {
             in.add(new Neuron());
         }
-        for(int i=0;i<5;i++) {
+        for(int i=0;i<3;i++) {
             hidden.add(new Neuron());
         }
         for(int i=0;i<2;i++) {
@@ -25,15 +25,15 @@ public class Learn {
         }
         for(Neuron n1 : in) {
             for(Neuron n2 : hidden) {
-                in_hidden.add(new Dendrite(n1,n2));
+                in_hidden.add(new Dendrite(n1,n2,lrate));
             }
         }
         for(Neuron n1 : hidden) {
             for(Neuron n2 : out) {
-                hidden_out.add(new Dendrite(n1,n2));
+                hidden_out.add(new Dendrite(n1,n2,lrate));
             }
         }     
-        int ITERATIONS = 10000;
+        int ITERATIONS = 50000000;
         for(int i=0;i<ITERATIONS;i++) {
             for(Neuron n : in) {
                 n.setTotal(0);
@@ -80,13 +80,29 @@ public class Learn {
             }
             double out1 = out.get(0).getValue();
             double out2 = out.get(1).getValue();
-            System.out.println("-----------------------------------------------");
+            if (out1<.0000000001) {
+                out.get(0).setValue(0);
+                out1=0;
+            }
+            if (out2<.0000000001) {
+                out.get(1).setValue(0);
+                out2=0;
+            }
+            if (out1>.99999) {
+                out.get(0).setValue(1);
+                out1=1;
+            }
+            if (out2>.99999) {
+                out.get(1).setValue(1);
+                out2=1;
+            }
+            /*System.out.println("-----------------------------------------------");
             System.out.println("in1: " + rand1);
             System.out.println("in2: " + rand2);
             System.out.println("out1: " + out1);
             System.out.println("out2: " + out2);
             System.out.println("out1target: " + out1target);
-            System.out.println("out2target: " + out2target);
+            System.out.println("out2target: " + out2target);*/
             double out1err = out1target-out1;
             double out2err = out2target-out2;
             out.get(0).setExpected(out1target);
@@ -108,6 +124,13 @@ public class Learn {
             for(Dendrite d : in_hidden) {
                 d.backWeight();
             }
+        }
+        System.out.println("printing final weights");
+        for(Dendrite d : in_hidden) {
+            System.out.println(d.getWeight());
+        }
+        for(Dendrite d : hidden_out) {
+            System.out.println(d.getWeight());
         }
         System.out.println("Network is now trained, enter custom values");
         while(true) {
@@ -144,6 +167,24 @@ public class Learn {
             }
             for(Neuron n2 : out) {
                 n2.calculate();
+            }
+            double out1 = out.get(0).getValue();
+            double out2 = out.get(1).getValue();
+            if (out1<.0000000001) {
+                out.get(0).setValue(0);
+                out1=0;
+            }
+            if (out2<.0000000001) {
+                out.get(1).setValue(0);
+                out2=0;
+            }
+            if (out1>.99999) {
+                out.get(0).setValue(1);
+                out1=1;
+            }
+            if (out2>.99999) {
+                out.get(1).setValue(1);
+                out2=1;
             }
             System.out.println("out1: " + out.get(0).getValue());
             System.out.println("out2: " + out.get(1).getValue());                                        

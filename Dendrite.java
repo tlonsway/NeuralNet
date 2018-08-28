@@ -4,17 +4,19 @@ public class Dendrite {
     double weight;
     double originalweight;
     double lrate;
-    public Dendrite(Neuron o, Neuron t) {
+    public Dendrite(Neuron o, Neuron t, double lr) {
         n1=o;
         n2=t;
         weight=Math.random();
         originalweight=weight;
+        lrate=lr;
     }
-    public Dendrite(Neuron o, Neuron t, double w) {
+    public Dendrite(Neuron o, Neuron t, double w, double lr) {
         n1=o;
         n2=t;
         weight=w;
         originalweight=weight;
+        lrate=lr;
     }
     public void compute() {
         n2.add(weight*n1.getValue());
